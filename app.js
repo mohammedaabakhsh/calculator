@@ -278,7 +278,21 @@ function PercentCalc() {
       borderRadius: 6,
       padding: "2px 9px"
     }
-  }, field.unit)), /*#__PURE__*/React.createElement("input", {
+  }, field.unit),
+  field.val !== "" && /*#__PURE__*/React.createElement("button", {
+    onClick: () => field.set(""),
+    style: {
+      border: "none",
+      background: "rgba(255,255,255,0.06)",
+      color: "rgba(255,255,255,0.4)",
+      borderRadius: 6,
+      padding: "2px 7px",
+      fontSize: 13,
+      cursor: "pointer",
+      fontFamily: "Cairo, sans-serif",
+      lineHeight: 1
+    }
+  }, "×")), /*#__PURE__*/React.createElement("input", {
     ref: field.ref,
     type: "number",
     inputMode: "decimal",
@@ -315,13 +329,13 @@ function PercentCalc() {
     onClick: calculate,
     style: {
       width: "100%",
-      padding: "16px 0",
+      padding: "18px 0",
       marginTop: 6,
-      borderRadius: 16,
+      borderRadius: 18,
       border: "none",
       background: `linear-gradient(135deg, ${c.main} 0%, ${c.mid} 50%, ${c.light} 100%)`,
       color: "#fff",
-      fontSize: 17,
+      fontSize: 19,
       fontFamily: "Cairo, sans-serif",
       fontWeight: 800,
       cursor: "pointer",
@@ -350,7 +364,7 @@ function PercentCalc() {
   }, result.label), /*#__PURE__*/React.createElement("p", {
     style: {
       color: "#fff",
-      fontSize: 52,
+      fontSize: 64,
       fontWeight: 900,
       letterSpacing: "-1.5px",
       lineHeight: 1,
@@ -696,12 +710,12 @@ function ProfitCalc() {
     disabled: !isValid || !total,
     style: {
       width: "100%",
-      padding: "16px 0",
-      borderRadius: 16,
+      padding: "18px 0",
+      borderRadius: 18,
       border: "none",
       background: isValid && total ? "linear-gradient(135deg,#7c3aed,#8b5cf6,#a78bfa)" : "rgba(255,255,255,0.06)",
       color: isValid && total ? "#fff" : "rgba(255,255,255,0.2)",
-      fontSize: 17,
+      fontSize: 19,
       fontFamily: "Cairo, sans-serif",
       fontWeight: 800,
       cursor: isValid && total ? "pointer" : "not-allowed",
@@ -990,11 +1004,11 @@ function App() {
   return /*#__PURE__*/React.createElement("div", {
     style: {
       minHeight: "100vh",
-      background: "#0a0a0f",
+      background: tab === "percent" ? "#0d0a18" : tab === "baloot" ? "#180e0a" : "#091812",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      paddingBottom: 40
+      paddingBottom: 90
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -1033,39 +1047,49 @@ function App() {
     }
   }, tabs.find(t => t.id === tab).label)), /*#__PURE__*/React.createElement("div", {
     style: {
-      display: "grid",
-      gridTemplateColumns: "1fr 1fr 1fr",
-      gap: 6,
-      background: "rgba(255,255,255,0.04)",
-      borderRadius: 16,
-      padding: 5,
-      border: "1px solid rgba(255,255,255,0.06)",
-      marginBottom: 0
+      position: "fixed",
+      bottom: 0, left: 0, right: 0,
+      display: "flex",
+      background: "rgba(10,10,15,0.96)",
+      backdropFilter: "blur(20px)",
+      WebkitBackdropFilter: "blur(20px)",
+      borderTop: "1px solid rgba(255,255,255,0.08)",
+      padding: "8px 0 28px",
+      zIndex: 100
     }
   }, tabs.map(t => /*#__PURE__*/React.createElement("button", {
     key: t.id,
     onClick: () => setTab(t.id),
     style: {
-      padding: "11px 0",
-      borderRadius: 12,
+      flex: 1,
+      padding: "6px 0",
       border: "none",
-      background: tab === t.id ? "rgba(255,255,255,0.08)" : "transparent",
-      color: tab === t.id ? "#fff" : "rgba(255,255,255,0.3)",
-      fontFamily: "Cairo, sans-serif",
-      fontSize: 14,
-      fontWeight: 700,
+      background: "transparent",
       cursor: "pointer",
-      transition: "all 0.2s",
       display: "flex",
+      flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      gap: 7
+      gap: 3,
+      transition: "all 0.2s"
     }
   }, /*#__PURE__*/React.createElement("span", {
     style: {
-      fontSize: 16
+      fontSize: 22,
+      lineHeight: 1,
+      opacity: tab === t.id ? 1 : 0.4,
+      transform: tab === t.id ? "translateY(-1px) scale(1.1)" : "none",
+      transition: "all 0.2s"
     }
-  }, t.icon), t.label)))), tab === "percent" ? /*#__PURE__*/React.createElement(PercentCalc, null) : tab === "profit" ? /*#__PURE__*/React.createElement(ProfitCalc, null) : /*#__PURE__*/React.createElement(BalootCalc, null), /*#__PURE__*/React.createElement("div", {
+  }, t.icon), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 10,
+      fontFamily: "Cairo, sans-serif",
+      fontWeight: 700,
+      color: tab === t.id ? accentColor : "rgba(255,255,255,0.3)",
+      transition: "color 0.3s"
+    }
+  }, t.label))))), tab === "percent" ? /*#__PURE__*/React.createElement(PercentCalc, null) : tab === "profit" ? /*#__PURE__*/React.createElement(ProfitCalc, null) : /*#__PURE__*/React.createElement(BalootCalc, null), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 32,
       paddingBottom: 16,
