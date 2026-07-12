@@ -820,7 +820,18 @@ function BalootCalc() {
   const [r2, setR2] = useState("");
   const [history, setHistory] = useState([]);
   const [names, setNames] = useState(["فريق 1", "فريق 2"]);
+  const [winMsg, setWinMsg] = useState(null);
   const WIN = 152;
+  const LOSER_MSGS = [
+    "قوم يا واد اتعلم بلوت 😂",
+    "ارجع تدرب من البداية 💀",
+    "حتى جدتي تلعب أحسن منك 🫢",
+    "مبروك على الخسارة المشرفة 🏳️",
+    "الله يعين اللي يلعب معك المرة الجاية 😭",
+    "شكراً على التبرع بالنقاط 🎁",
+    "أنت متأكد إنك تعرف تلعب بلوت؟ 🤔",
+    "روح نام، بكرة يكون أحسن 🌙",
+  ];
   const bothWin = scores[0] >= WIN && scores[1] >= WIN;
   const winner = bothWin
     ? (scores[0] > scores[1] ? 0 : scores[1] > scores[0] ? 1 : null)
@@ -830,9 +841,18 @@ function BalootCalc() {
   const addRound = () => {
     const s1 = parseInt(r1) || 0, s2 = parseInt(r2) || 0;
     if (s1 === 0 && s2 === 0) return;
-    setScores([scores[0]+s1, scores[1]+s2]);
+    const ns = [scores[0]+s1, scores[1]+s2];
+    setScores(ns);
     setHistory(prev => [...prev, [s1, s2]]);
     setR1(""); setR2("");
+    const bothOver = ns[0] >= WIN && ns[1] >= WIN;
+    const w = bothOver ? (ns[0] > ns[1] ? 0 : ns[1] > ns[0] ? 1 : null) : ns[0] >= WIN ? 0 : ns[1] >= WIN ? 1 : null;
+    if (w !== null) {
+      const loserIdx = w === 0 ? 1 : 0;
+      const msg = LOSER_MSGS[Math.floor(Math.random() * LOSER_MSGS.length)];
+      setWinMsg({winner: names[w], loser: names[loserIdx], msg});
+      setTimeout(() => setWinMsg(null), 6000);
+    }
   };
   const undoLast = () => {
     if (history.length === 0) return;
@@ -840,8 +860,26 @@ function BalootCalc() {
     setScores([Math.max(0,scores[0]-last[0]), Math.max(0,scores[1]-last[1])]);
     setHistory(prev => prev.slice(0,-1));
   };
-  const reset = () => { setScores([0,0]); setHistory([]); setR1(""); setR2(""); };
-  return /*#__PURE__*/React.createElement("div", {style:{width:"100%",maxWidth:440,padding:"0 20px"}},
+  const reset = () => { setScores([0,0]); setHistory([]); setR1(""); setR2(""); setWinMsg(null); };
+  return /*#__PURE__*/React.createElement("div", {style:{width:"100%",maxWidth:440,padding:"0 20px",position:"relative"}},
+    winMsg && React.createElement("div", {
+      style:{position:"fixed",top:0,left:0,right:0,bottom:0,zIndex:999,
+        background:"rgba(10,10,15,0.97)",display:"flex",flexDirection:"column",
+        alignItems:"center",justifyContent:"center",padding:32,textAlign:"center",
+        animation:"slideUp 0.4s cubic-bezier(0.22,1,0.36,1) forwards"}
+    },
+      React.createElement("div",{style:{fontSize:72,marginBottom:16}},"🏆"),
+      React.createElement("p",{style:{color:"#fbbf24",fontSize:28,fontWeight:900,marginBottom:8}},
+        `${winMsg.winner} فاز!`),
+      React.createElement("p",{style:{color:"rgba(255,255,255,0.5)",fontSize:15,marginBottom:32}},
+        `بالتوفيق ${winMsg.loser} المرة الجاية`),
+      React.createElement("div",{style:{background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.1)",
+        borderRadius:20,padding:"20px 28px",maxWidth:320}},
+        React.createElement("p",{style:{color:"#fff",fontSize:20,fontWeight:700,lineHeight:1.5}}, winMsg.msg)
+      ),
+      React.createElement("p",{style:{color:"rgba(255,255,255,0.2)",fontSize:12,marginTop:24}},
+        "تختفي تلقائياً بعد 6 ثواني")
+    ),
     React.createElement("div", {style:{padding:"12px 0 10px",textAlign:"center"}},
       React.createElement("p", {style:{color:"rgba(255,255,255,0.3)",fontSize:12,fontWeight:500}}, "أول فريق يوصل 152 يفوز")
     ),
