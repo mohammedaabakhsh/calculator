@@ -822,7 +822,9 @@ function BalootCalc() {
   const [names, setNames] = useState(["فريق 1", "فريق 2"]);
   const WIN = 152;
   const bothWin = scores[0] >= WIN && scores[1] >= WIN;
-  const winner = bothWin ? (scores[0] > scores[1] ? 0 : scores[1] > scores[0] ? 1 : -1) : scores[0] >= WIN ? 0 : scores[1] >= WIN ? 1 : null;
+  const winner = bothWin
+    ? (scores[0] > scores[1] ? 0 : scores[1] > scores[0] ? 1 : null)
+    : scores[0] >= WIN ? 0 : scores[1] >= WIN ? 1 : null;
   const C = ["#7c3aed", "#059669"];
   const CL = ["#a78bfa", "#34d399"];
   const addRound = () => {
