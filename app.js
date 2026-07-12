@@ -905,20 +905,20 @@ function BalootCalc() {
     },"إعادة تعيين"),
     history.length > 0 && React.createElement("div",{style:{background:"rgba(255,255,255,0.02)",
       borderRadius:14,border:"1px solid rgba(255,255,255,0.06)",overflow:"hidden"}},
-      React.createElement("div",{style:{padding:"8px 14px",borderBottom:"1px solid rgba(255,255,255,0.05)"}},
-        React.createElement("p",{style:{color:"rgba(255,255,255,0.3)",fontSize:11,fontWeight:700}},"سجل الجولات")
+      React.createElement("div",{style:{padding:"12px 16px",borderBottom:"1px solid rgba(255,255,255,0.05)"}},
+        React.createElement("p",{style:{color:"rgba(255,255,255,0.4)",fontSize:13,fontWeight:700}},"سجل الجولات")
       ),
       history.map((r,idx) => React.createElement("div",{
         key:idx,
         style:{display:"flex",justifyContent:"space-between",alignItems:"center",
-          padding:"7px 14px",
-          borderBottom:idx<history.length-1?"1px solid rgba(255,255,255,0.04)":"none",
-          background:idx===history.length-1?"rgba(255,255,255,0.02)":"transparent"}
+          padding:"12px 16px",
+          borderBottom:idx<history.length-1?"1px solid rgba(255,255,255,0.05)":"none",
+          background:idx===history.length-1?"rgba(255,255,255,0.03)":"transparent"}
       },
-        React.createElement("span",{style:{color:"rgba(255,255,255,0.2)",fontSize:11}},`ج${idx+1}`),
-        React.createElement("span",{style:{color:"#a78bfa",fontSize:13,fontWeight:800}},`+${r[0]}`),
-        React.createElement("span",{style:{color:"rgba(255,255,255,0.15)",fontSize:11}},"vs"),
-        React.createElement("span",{style:{color:"#34d399",fontSize:13,fontWeight:800}},`+${r[1]}`)
+        React.createElement("span",{style:{color:"rgba(255,255,255,0.3)",fontSize:13,fontWeight:600}},`جولة ${idx+1}`),
+        React.createElement("span",{style:{color:"#a78bfa",fontSize:17,fontWeight:900}},`+${r[0]}`),
+        React.createElement("span",{style:{color:"rgba(255,255,255,0.2)",fontSize:13}},"vs"),
+        React.createElement("span",{style:{color:"#34d399",fontSize:17,fontWeight:900}},`+${r[1]}`)
       ))
     )
   );
