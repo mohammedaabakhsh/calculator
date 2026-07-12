@@ -170,13 +170,13 @@ function PercentCalc() {
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      padding: "28px 0 24px",
+      padding: "6px 0 10px",
       textAlign: "center"
     }
   }, /*#__PURE__*/React.createElement("p", {
     style: {
       color: "rgba(255,255,255,0.3)",
-      fontSize: 13,
+      fontSize: 11,
       fontWeight: 500,
       lineHeight: 1.5
     }
@@ -184,8 +184,8 @@ function PercentCalc() {
     style: {
       display: "grid",
       gridTemplateColumns: "1fr 1fr",
-      gap: 8,
-      marginBottom: 16
+      gap: 6,
+      marginBottom: 10
     }
   }, MODES.map(m => {
     const mc = COLORS[m.id];
@@ -197,8 +197,8 @@ function PercentCalc() {
       style: {
         display: "flex",
         alignItems: "center",
-        gap: 10,
-        padding: "13px 16px",
+        gap: 6,
+        padding: "8px 10px",
         borderRadius: 16,
         border: active ? `1.5px solid ${mc.mid}50` : "1.5px solid rgba(255,255,255,0.06)",
         background: active ? `linear-gradient(135deg, ${mc.main}22, ${mc.light}12)` : "rgba(255,255,255,0.025)",
@@ -207,15 +207,15 @@ function PercentCalc() {
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
-        width: 36,
-        height: 36,
-        borderRadius: 10,
+        width: 28,
+        height: 28,
+        borderRadius: 8,
         flexShrink: 0,
         background: active ? `linear-gradient(135deg, ${mc.main}, ${mc.light})` : "rgba(255,255,255,0.06)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        fontSize: 16,
+        fontSize: 13,
         fontWeight: 900,
         color: active ? "#fff" : "rgba(255,255,255,0.25)",
         boxShadow: active ? `0 4px 12px ${mc.glow}` : "none",
@@ -223,7 +223,7 @@ function PercentCalc() {
       }
     }, m.icon), /*#__PURE__*/React.createElement("span", {
       style: {
-        fontSize: 13,
+        fontSize: 12,
         fontWeight: 700,
         color: active ? "#fff" : "rgba(255,255,255,0.3)",
         transition: "color 0.2s"
@@ -234,8 +234,8 @@ function PercentCalc() {
       background: "rgba(255,255,255,0.03)",
       borderRadius: 24,
       border: "1px solid rgba(255,255,255,0.07)",
-      padding: 24,
-      boxShadow: "0 24px 48px rgba(0,0,0,0.4)"
+      padding: 14,
+      boxShadow: "0 12px 24px rgba(0,0,0,0.4)"
     }
   }, [{
     label: cfg.labelA,
@@ -253,14 +253,14 @@ function PercentCalc() {
   }].map((field, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
     style: {
-      marginBottom: 14
+      marginBottom: 8
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      marginBottom: 7
+      marginBottom: 4
     }
   }, /*#__PURE__*/React.createElement("label", {
     style: {
@@ -302,12 +302,12 @@ function PercentCalc() {
     placeholder: "0",
     style: {
       width: "100%",
-      padding: "13px 16px",
-      borderRadius: 14,
+      padding: "9px 14px",
+      borderRadius: 12,
       border: "1.5px solid rgba(255,255,255,0.08)",
       background: "rgba(255,255,255,0.04)",
       color: "#fff",
-      fontSize: 24,
+      fontSize: 20,
       fontFamily: "Cairo, sans-serif",
       fontWeight: 700,
       outline: "none",
@@ -329,13 +329,13 @@ function PercentCalc() {
     onClick: calculate,
     style: {
       width: "100%",
-      padding: "18px 0",
-      marginTop: 6,
-      borderRadius: 18,
+      padding: "13px 0",
+      marginTop: 4,
+      borderRadius: 14,
       border: "none",
       background: `linear-gradient(135deg, ${c.main} 0%, ${c.mid} 50%, ${c.light} 100%)`,
       color: "#fff",
-      fontSize: 19,
+      fontSize: 17,
       fontFamily: "Cairo, sans-serif",
       fontWeight: 800,
       cursor: "pointer",
@@ -350,7 +350,7 @@ function PercentCalc() {
       borderRadius: 18,
       background: `linear-gradient(145deg, ${c.main}18 0%, rgba(255,255,255,0.02) 100%)`,
       border: `1px solid ${c.mid}35`,
-      padding: "22px 20px",
+      padding: "12px 16px",
       textAlign: "center"
     }
   }, /*#__PURE__*/React.createElement("p", {
@@ -359,16 +359,16 @@ function PercentCalc() {
       fontSize: 12,
       fontWeight: 700,
       letterSpacing: "0.8px",
-      marginBottom: 8
+      marginBottom: 4
     }
   }, result.label), /*#__PURE__*/React.createElement("p", {
     style: {
       color: "#fff",
-      fontSize: 64,
+      fontSize: 48,
       fontWeight: 900,
       letterSpacing: "-1.5px",
       lineHeight: 1,
-      marginBottom: result.detail ? 14 : 0
+      marginBottom: result.detail ? 8 : 0
     }
   }, /*#__PURE__*/React.createElement("span", {
     style: {
@@ -376,9 +376,9 @@ function PercentCalc() {
     }
   }, result.main), result.unit && /*#__PURE__*/React.createElement("span", {
     style: {
-      fontSize: 26,
+      fontSize: 20,
       color: c.light,
-      marginRight: 6,
+      marginRight: 4,
       opacity: 0.8
     }
   }, result.unit)), /*#__PURE__*/React.createElement("div", {
@@ -479,13 +479,13 @@ function ProfitCalc() {
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      padding: "28px 0 24px",
+      padding: "6px 0 10px",
       textAlign: "center"
     }
   }, /*#__PURE__*/React.createElement("p", {
     style: {
       color: "rgba(255,255,255,0.3)",
-      fontSize: 13,
+      fontSize: 11,
       fontWeight: 500,
       lineHeight: 1.5
     }
@@ -494,8 +494,8 @@ function ProfitCalc() {
       background: "rgba(255,255,255,0.03)",
       borderRadius: 20,
       border: "1px solid rgba(255,255,255,0.07)",
-      padding: "20px",
-      marginBottom: 12
+      padding: "12px",
+      marginBottom: 8
     }
   }, /*#__PURE__*/React.createElement("label", {
     style: {
@@ -517,12 +517,12 @@ function ProfitCalc() {
     placeholder: "1,000,000",
     style: {
       width: "100%",
-      padding: "13px 16px",
-      borderRadius: 14,
+      padding: "9px 14px",
+      borderRadius: 12,
       border: "1.5px solid rgba(255,255,255,0.08)",
       background: "rgba(255,255,255,0.04)",
       color: "#fff",
-      fontSize: 26,
+      fontSize: 20,
       fontFamily: "Cairo, sans-serif",
       fontWeight: 900,
       outline: "none",
@@ -542,15 +542,15 @@ function ProfitCalc() {
       background: "rgba(255,255,255,0.03)",
       borderRadius: 20,
       border: "1px solid rgba(255,255,255,0.07)",
-      padding: "20px",
-      marginBottom: 12
+      padding: "12px",
+      marginBottom: 8
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      marginBottom: 16
+      marginBottom: 8
     }
   }, /*#__PURE__*/React.createElement("span", {
     style: {
@@ -575,7 +575,7 @@ function ProfitCalc() {
       height: 4,
       background: "rgba(255,255,255,0.06)",
       borderRadius: 99,
-      marginBottom: 18,
+      marginBottom: 10,
       overflow: "hidden"
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -593,9 +593,9 @@ function ProfitCalc() {
       className: "partner-enter",
       style: {
         display: "flex",
-        gap: 8,
+        gap: 6,
         alignItems: "center",
-        marginBottom: 10
+        marginBottom: 6
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -612,7 +612,7 @@ function ProfitCalc() {
       onChange: e => updatePartner(p.id, "name", e.target.value),
       style: {
         flex: 1,
-        padding: "10px 12px",
+        padding: "7px 10px",
         borderRadius: 12,
         border: "1.5px solid rgba(255,255,255,0.07)",
         background: "rgba(255,255,255,0.04)",
@@ -638,7 +638,7 @@ function ProfitCalc() {
       placeholder: "0",
       style: {
         width: "100%",
-        padding: "10px 28px 10px 10px",
+        padding: "7px 24px 7px 8px",
         borderRadius: 12,
         border: "1.5px solid rgba(255,255,255,0.07)",
         background: "rgba(255,255,255,0.04)",
@@ -710,8 +710,8 @@ function ProfitCalc() {
     disabled: !isValid || !total,
     style: {
       width: "100%",
-      padding: "18px 0",
-      borderRadius: 18,
+      padding: "13px 0",
+      borderRadius: 14,
       border: "none",
       background: isValid && total ? "linear-gradient(135deg,#7c3aed,#8b5cf6,#a78bfa)" : "rgba(255,255,255,0.06)",
       color: isValid && total ? "#fff" : "rgba(255,255,255,0.2)",
@@ -731,8 +731,8 @@ function ProfitCalc() {
       background: "rgba(255,255,255,0.03)",
       borderRadius: 20,
       border: "1px solid rgba(255,255,255,0.07)",
-      padding: 20,
-      marginBottom: 12
+      padding: 12,
+      marginBottom: 8
     }
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -751,9 +751,9 @@ function ProfitCalc() {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "14px 16px",
-        borderRadius: 14,
-        marginBottom: 8,
+        padding: "10px 12px",
+        borderRadius: 12,
+        marginBottom: 6,
         background: `linear-gradient(135deg, ${pc.main}15, ${pc.light}08)`,
         border: `1px solid ${pc.main}30`
       }
@@ -765,9 +765,9 @@ function ProfitCalc() {
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
-        width: 36,
-        height: 36,
-        borderRadius: 10,
+        width: 28,
+        height: 28,
+        borderRadius: 8,
         background: `linear-gradient(135deg,${pc.main},${pc.light})`,
         display: "flex",
         alignItems: "center",
@@ -1091,41 +1091,17 @@ function App() {
     }
   }, t.label))))), tab === "percent" ? /*#__PURE__*/React.createElement(PercentCalc, null) : tab === "profit" ? /*#__PURE__*/React.createElement(ProfitCalc, null) : /*#__PURE__*/React.createElement(BalootCalc, null), /*#__PURE__*/React.createElement("div", {
     style: {
-      marginTop: 32,
-      paddingBottom: 16,
+      marginTop: 16,
+      paddingBottom: 8,
       textAlign: "center"
     }
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("p", {
     style: {
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 8,
-      background: "rgba(255,255,255,0.05)",
-      border: "1px solid rgba(255,255,255,0.09)",
-      borderRadius: 20,
-      padding: "8px 18px"
+      color: "rgba(255,255,255,0.18)",
+      fontSize: 11,
+      fontWeight: 600,
+      letterSpacing: "0.5px"
     }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "rgba(255,255,255,0.2)",
-      fontSize: 13
-    }
-  }, "✶"), /*#__PURE__*/React.createElement("p", {
-    style: {      fontSize: 13
-    }
-  }, "❖"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      color: "rgba(255,255,255,0.45)",
-      fontSize: 13,
-      fontWeight: 700,
-      letterSpacing: "0.4px",
-      margin: 0
-    }
-  }, "تصميم وتطوير · محمد بخش"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "rgba(255,255,255,0.2)",
-      fontSize: 13
-    }
-  }, "❖"))));
+  }, "✦ محمد بخش"));
 }
 ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));
