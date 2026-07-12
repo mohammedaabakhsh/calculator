@@ -846,9 +846,9 @@ function BalootCalc() {
       names.map((name,i) => React.createElement("input", {
         key:i, type:"text", value:name,
         onChange: e => setNames(prev => prev.map((n,j) => j===i ? e.target.value : n)),
-        style:{padding:"8px 10px",borderRadius:10,border:`1.5px solid ${C[i]}50`,
+        style:{width:"100%",padding:"8px 10px",borderRadius:10,border:`1.5px solid ${C[i]}50`,
           background:`${C[i]}18`,color:CL[i],fontSize:13,fontFamily:"Cairo,sans-serif",
-          fontWeight:800,textAlign:"center",outline:"none"}
+          fontWeight:800,textAlign:"center",outline:"none",boxSizing:"border-box"}
       }))
     ),
     React.createElement("div", {style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:10}},
@@ -878,9 +878,9 @@ function BalootCalc() {
           onChange: e => setVal(e.target.value),
           onKeyDown: e => e.key==="Enter" && addRound(),
           placeholder:"0",
-          style:{padding:"10px",borderRadius:10,border:`1.5px solid ${C[i]}40`,
+          style:{width:"100%",padding:"10px",borderRadius:10,border:`1.5px solid ${C[i]}40`,
             background:C[i]+"12",color:"#fff",fontSize:20,fontFamily:"Cairo,sans-serif",
-            fontWeight:900,textAlign:"center",outline:"none"}
+            fontWeight:900,textAlign:"center",outline:"none",boxSizing:"border-box"}
         }))
       ),
       React.createElement("div",{style:{display:"grid",gridTemplateColumns:"1fr auto",gap:8}},
