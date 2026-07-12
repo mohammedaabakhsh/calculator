@@ -143,6 +143,7 @@ function PercentCalc() {
   const [b, setB] = useState("");
   const [result, setResult] = useState(null);
   const [resKey, setResKey] = useState(0);
+  const [copied, setCopied] = useState(false);
   const inputBRef = useRef(null);
   const c = COLORS[mode];
   const cfg = CONFIGS[mode];
@@ -395,7 +396,27 @@ function PercentCalc() {
       marginRight: 6,
       opacity: 0.8
     }
-  }, result.unit)), result.detail && /*#__PURE__*/React.createElement("div", {
+  }, result.unit)), /*#__PURE__*/React.createElement("div", {
+    style: { marginTop: 10, marginBottom: result.detail ? 10 : 0 }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => {
+      navigator.clipboard.writeText(result.main.replace(/,/g, ""));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    },
+    style: {
+      padding: "5px 16px",
+      borderRadius: 8,
+      border: `1px solid ${copied ? c.mid : "rgba(255,255,255,0.1)"}`,
+      background: copied ? `${c.main}25` : "rgba(255,255,255,0.04)",
+      color: copied ? c.light : "rgba(255,255,255,0.35)",
+      fontSize: 12,
+      fontFamily: "Cairo, sans-serif",
+      fontWeight: 700,
+      cursor: "pointer",
+      transition: "all 0.2s"
+    }
+  }, copied ? "✓ تم النسخ" : "📋 نسخ")), result.detail && /*#__PURE__*/React.createElement("div", {
     style: {
       display: "inline-flex",
       alignItems: "center",
@@ -931,34 +952,4 @@ function App() {
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "inline-flex",
-      alignItems: "center",
-      gap: 8,
-      background: "rgba(255,255,255,0.05)",
-      border: "1px solid rgba(255,255,255,0.09)",
-      borderRadius: 20,
-      padding: "8px 18px"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "rgba(255,255,255,0.2)",
-      fontSize: 13
-    }
-  }, "✦"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      color: "rgba(255,255,255,0.45)",
-      fontSize: 13,
-      fontWeight: 700,
-      letterSpacing: "0.4px",
-      margin: 0
-        }
-  }, "تصميم وتطوير · محمد بخش"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "rgba(255,255,255,0.2)",
-      fontSize: 13
-    }
-  }, "✶"))));
-}
-ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));
-  </script>
-</body>
-</html>
+      alignI
