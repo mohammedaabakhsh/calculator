@@ -1102,6 +1102,6 @@ function App() {
       fontWeight: 600,
       letterSpacing: "0.5px"
     }
-  }, "✦ محمد بخش"));
+  }, "✦ محمد بخش")));
 }
 ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));
