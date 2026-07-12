@@ -819,7 +819,7 @@ function BalootCalc() {
   const [r1, setR1] = useState("");
   const [r2, setR2] = useState("");
   const [history, setHistory] = useState([]);
-  const [names, setNames] = useState(["فريق أ", "فريق ب"]);
+  const [names, setNames] = useState(["فريق 1", "فريق 2"]);
   const WIN = 152;
   const winner = scores[0] >= WIN ? 0 : scores[1] >= WIN ? 1 : null;
   const C = ["#7c3aed", "#059669"];
@@ -831,75 +831,89 @@ function BalootCalc() {
     setHistory(prev => [...prev, [s1, s2]]);
     setR1(""); setR2("");
   };
+  const undoLast = () => {
+    if (history.length === 0) return;
+    const last = history[history.length-1];
+    setScores([Math.max(0,scores[0]-last[0]), Math.max(0,scores[1]-last[1])]);
+    setHistory(prev => prev.slice(0,-1));
+  };
   const reset = () => { setScores([0,0]); setHistory([]); setR1(""); setR2(""); };
   return /*#__PURE__*/React.createElement("div", {style:{width:"100%",maxWidth:440,padding:"0 20px"}},
-    React.createElement("div", {style:{padding:"20px 0 16px",textAlign:"center"}},
-      React.createElement("p", {style:{color:"rgba(255,255,255,0.3)",fontSize:13,fontWeight:500}}, "أول فريق يوصل 152 يفوز")
+    React.createElement("div", {style:{padding:"12px 0 10px",textAlign:"center"}},
+      React.createElement("p", {style:{color:"rgba(255,255,255,0.3)",fontSize:12,fontWeight:500}}, "أول فريق يوصل 152 يفوز")
     ),
-    React.createElement("div", {style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:12}},
+    React.createElement("div", {style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:10}},
       names.map((name,i) => React.createElement("input", {
         key:i, type:"text", value:name,
         onChange: e => setNames(prev => prev.map((n,j) => j===i ? e.target.value : n)),
-        style:{padding:"10px 12px",borderRadius:12,border:`1.5px solid ${C[i]}50`,
-          background:`${C[i]}18`,color:CL[i],fontSize:14,fontFamily:"Cairo,sans-serif",
+        style:{padding:"8px 10px",borderRadius:10,border:`1.5px solid ${C[i]}50`,
+          background:`${C[i]}18`,color:CL[i],fontSize:13,fontFamily:"Cairo,sans-serif",
           fontWeight:800,textAlign:"center",outline:"none"}
       }))
     ),
-    React.createElement("div", {style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:12}},
+    React.createElement("div", {style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:10}},
       scores.map((s,i) => React.createElement("div", {
         key:i,
-        style:{borderRadius:16,padding:"16px",textAlign:"center",
-          background: winner===i ? `${C[i]}20` : "rgba(255,255,255,0.03)",
+        style:{borderRadius:14,padding:"12px 10px",textAlign:"center",
+          background: winner===i ? C[i]+"22" : "rgba(255,255,255,0.03)",
           border:`1.5px solid ${winner===i ? C[i] : "rgba(255,255,255,0.07)"}`,
-          boxShadow: winner===i ? `0 4px 24px ${C[i]}55` : "none"}
+          boxShadow: winner===i ? `0 4px 20px ${C[i]}44` : "none"}
       },
-        winner===i && React.createElement("p",{style:{color:CL[i],fontSize:11,fontWeight:800,marginBottom:4}},"🏆 فاز!"),
-        React.createElement("p",{style:{color:CL[i],fontSize:44,fontWeight:900,lineHeight:1}},s),
-        React.createElement("p",{style:{color:"rgba(255,255,255,0.3)",fontSize:11,marginTop:4}},"من 152"),
-        React.createElement("div",{style:{height:4,background:"rgba(255,255,255,0.06)",borderRadius:99,marginTop:10,overflow:"hidden"}},
+        winner===i && React.createElement("p",{style:{color:CL[i],fontSize:10,fontWeight:800,marginBottom:2}},"🏆 فاز!"),
+        React.createElement("p",{style:{color:CL[i],fontSize:36,fontWeight:900,lineHeight:1}},s),
+        React.createElement("p",{style:{color:"rgba(255,255,255,0.25)",fontSize:10,marginTop:3}},"من 152"),
+        React.createElement("div",{style:{height:3,background:"rgba(255,255,255,0.06)",borderRadius:99,marginTop:8,overflow:"hidden"}},
           React.createElement("div",{style:{height:"100%",borderRadius:99,width:`${Math.min(s/152*100,100)}%`,
             background:`linear-gradient(90deg,${C[i]},${CL[i]})`,transition:"width 0.4s"}})
         )
       ))
     ),
-    winner === null && React.createElement("div", {style:{background:"rgba(255,255,255,0.03)",borderRadius:20,
-      border:"1px solid rgba(255,255,255,0.07)",padding:16,marginBottom:10}},
-      React.createElement("p",{style:{color:"rgba(255,255,255,0.35)",fontSize:12,fontWeight:700,
-        textAlign:"center",marginBottom:12,letterSpacing:"0.5px"}},"نقاط الجولة"),
+    winner === null && React.createElement("div", {style:{background:"rgba(255,255,255,0.03)",borderRadius:18,
+      border:"1px solid rgba(255,255,255,0.07)",padding:14,marginBottom:8}},
+      React.createElement("p",{style:{color:"rgba(255,255,255,0.35)",fontSize:11,fontWeight:700,
+        textAlign:"center",marginBottom:10,letterSpacing:"0.5px"}},"نقاط الجولة"),
       React.createElement("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:10}},
         [[r1,setR1],[r2,setR2]].map(([val,setVal],i) => React.createElement("input",{
           key:i, type:"number", inputMode:"numeric", value:val,
           onChange: e => setVal(e.target.value),
           onKeyDown: e => e.key==="Enter" && addRound(),
           placeholder:"0",
-          style:{padding:"12px",borderRadius:12,border:`1.5px solid ${C[i]}40`,
-            background:`${C[i]}10`,color:"#fff",fontSize:22,fontFamily:"Cairo,sans-serif",
+          style:{padding:"10px",borderRadius:10,border:`1.5px solid ${C[i]}40`,
+            background:C[i]+"12",color:"#fff",fontSize:20,fontFamily:"Cairo,sans-serif",
             fontWeight:900,textAlign:"center",outline:"none"}
         }))
       ),
-      React.createElement("button",{onClick:addRound,className:"calc-btn",
-        style:{width:"100%",padding:"13px 0",borderRadius:14,border:"none",
-          background:"linear-gradient(135deg,#7c3aed,#8b5cf6)",color:"#fff",
-          fontSize:16,fontFamily:"Cairo,sans-serif",fontWeight:800,cursor:"pointer",
-          boxShadow:"0 6px 20px rgba(124,58,237,0.3)"}
-      },"+ إضافة جولة")
+      React.createElement("div",{style:{display:"grid",gridTemplateColumns:"1fr auto",gap:8}},
+        React.createElement("button",{onClick:addRound,className:"calc-btn",
+          style:{padding:"12px 0",borderRadius:12,border:"none",
+            background:"linear-gradient(135deg,#7c3aed,#8b5cf6)",color:"#fff",
+            fontSize:15,fontFamily:"Cairo,sans-serif",fontWeight:800,cursor:"pointer",
+            boxShadow:"0 4px 16px rgba(124,58,237,0.3)"}
+        },"+ إضافة جولة"),
+        React.createElement("button",{onClick:undoLast, disabled:history.length===0,
+          style:{padding:"12px 14px",borderRadius:12,border:"1px solid rgba(239,68,68,0.25)",
+            background:"rgba(239,68,68,0.08)",color:history.length===0?"rgba(255,255,255,0.15)":"#f87171",
+            fontSize:13,fontFamily:"Cairo,sans-serif",fontWeight:700,cursor:history.length===0?"not-allowed":"pointer"}
+        },"تراجع")
+      )
     ),
     React.createElement("button",{onClick:reset,
-      style:{width:"100%",padding:"10px 0",borderRadius:12,
-        border:"1px solid rgba(255,255,255,0.08)",background:"transparent",
-        color:"rgba(255,255,255,0.25)",fontSize:13,fontFamily:"Cairo,sans-serif",
-        fontWeight:700,cursor:"pointer",marginBottom:12}
+      style:{width:"100%",padding:"9px 0",borderRadius:10,
+        border:"1px solid rgba(255,255,255,0.07)",background:"transparent",
+        color:"rgba(255,255,255,0.2)",fontSize:12,fontFamily:"Cairo,sans-serif",
+        fontWeight:700,cursor:"pointer",marginBottom:10}
     },"إعادة تعيين"),
     history.length > 0 && React.createElement("div",{style:{background:"rgba(255,255,255,0.02)",
-      borderRadius:16,border:"1px solid rgba(255,255,255,0.06)",overflow:"hidden"}},
-      React.createElement("div",{style:{padding:"10px 16px",borderBottom:"1px solid rgba(255,255,255,0.05)"}},
-        React.createElement("p",{style:{color:"rgba(255,255,255,0.3)",fontSize:12,fontWeight:700}},"سجل الجولات")
+      borderRadius:14,border:"1px solid rgba(255,255,255,0.06)",overflow:"hidden"}},
+      React.createElement("div",{style:{padding:"8px 14px",borderBottom:"1px solid rgba(255,255,255,0.05)"}},
+        React.createElement("p",{style:{color:"rgba(255,255,255,0.3)",fontSize:11,fontWeight:700}},"سجل الجولات")
       ),
       history.map((r,idx) => React.createElement("div",{
         key:idx,
         style:{display:"flex",justifyContent:"space-between",alignItems:"center",
-          padding:"8px 16px",
-          borderBottom:idx<history.length-1?"1px solid rgba(255,255,255,0.04)":"none"}
+          padding:"7px 14px",
+          borderBottom:idx<history.length-1?"1px solid rgba(255,255,255,0.04)":"none",
+          background:idx===history.length-1?"rgba(255,255,255,0.02)":"transparent"}
       },
         React.createElement("span",{style:{color:"rgba(255,255,255,0.2)",fontSize:11}},`ج${idx+1}`),
         React.createElement("span",{style:{color:"#a78bfa",fontSize:13,fontWeight:800}},`+${r[0]}`),
@@ -982,7 +996,7 @@ function App() {
   }, "أدوات النسب المئوية")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "1fr 1fr",
+      gridTemplateColumns: "1fr 1fr 1fr",
       gap: 6,
       background: "rgba(255,255,255,0.04)",
       borderRadius: 16,
