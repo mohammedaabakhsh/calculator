@@ -821,7 +821,8 @@ function BalootCalc() {
   const [history, setHistory] = useState([]);
   const [names, setNames] = useState(["فريق 1", "فريق 2"]);
   const WIN = 152;
-  const winner = scores[0] >= WIN ? 0 : scores[1] >= WIN ? 1 : null;
+  const bothWin = scores[0] >= WIN && scores[1] >= WIN;
+  const winner = bothWin ? (scores[0] > scores[1] ? 0 : scores[1] > scores[0] ? 1 : -1) : scores[0] >= WIN ? 0 : scores[1] >= WIN ? 1 : null;
   const C = ["#7c3aed", "#059669"];
   const CL = ["#a78bfa", "#34d399"];
   const addRound = () => {
@@ -855,11 +856,12 @@ function BalootCalc() {
       scores.map((s,i) => React.createElement("div", {
         key:i,
         style:{borderRadius:14,padding:"12px 10px",textAlign:"center",
-          background: winner===i ? C[i]+"22" : "rgba(255,255,255,0.03)",
-          border:`1.5px solid ${winner===i ? C[i] : "rgba(255,255,255,0.07)"}`,
+          background: winner===i ? C[i]+"22" : winner===-1 ? "rgba(251,191,36,0.08)" : "rgba(255,255,255,0.03)",
+          border:`1.5px solid ${winner===i ? C[i] : winner===-1 ? "#fbbf24" : "rgba(255,255,255,0.07)"}`,
           boxShadow: winner===i ? `0 4px 20px ${C[i]}44` : "none"}
       },
         winner===i && React.createElement("p",{style:{color:CL[i],fontSize:10,fontWeight:800,marginBottom:2}},"🏆 فاز!"),
+        winner===-1 && React.createElement("p",{style:{color:"#fbbf24",fontSize:10,fontWeight:800,marginBottom:2}},"🤝 تعادل!"),
         React.createElement("p",{style:{color:CL[i],fontSize:36,fontWeight:900,lineHeight:1}},s),
         React.createElement("p",{style:{color:"rgba(255,255,255,0.25)",fontSize:10,marginTop:3}},"من 152"),
         React.createElement("div",{style:{height:3,background:"rgba(255,255,255,0.06)",borderRadius:99,marginTop:8,overflow:"hidden"}},
