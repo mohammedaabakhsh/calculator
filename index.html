@@ -13,7 +13,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
-  <!-- React 18 from jsDelivr (no Babel needed — JS is pre-compiled) -->
   <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js" crossorigin></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
   <style>
@@ -29,7 +28,6 @@
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button { -webkit-appearance: none; }
     input[type=number] { -moz-appearance: textfield; }
-
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(16px) scale(0.98); }
       to   { opacity: 1; transform: translateY(0) scale(1); }
@@ -42,7 +40,6 @@
       from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
     .result-enter  { animation: slideUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
     .partner-enter { animation: fadeIn 0.25s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
     .mode-btn  { transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -53,4 +50,19 @@
 </head>
 <body>
   <div id="root"></div>
-  <script src="app.j
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', async () => {
+        const SW_VER = 'v2';
+        if (localStorage.getItem('swVer') !== SW_VER) {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(regs.map(r => r.unregister()));
+          localStorage.setItem('swVer', SW_VER);
+        }
+        navigator.serviceWorker.register('/calculator/sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
