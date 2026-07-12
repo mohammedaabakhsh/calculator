@@ -1,0 +1,15 @@
+{
+  "name": "حاسبة النسبة المئوية",
+  "short_name": "حاسبة",
+  "description": "حاسبة النسبة المئوية وتوزيع الأرباح وبلوت",
+  "start_url": "/calculator/",
+  "scope": "/calculator/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#7c3aed",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
