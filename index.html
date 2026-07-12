@@ -59,6 +59,11 @@ const MODES = [{
   sub: "مثال: كم يساوي 15% من 500 ريال؟",
   icon: "%"
 }, {
+  id: 2,
+  label: "كم نسبته؟",
+  sub: "مثال: 75 من 300 = كم بالمئة؟",
+  icon: "؟"
+}, {
   id: 3,
   label: "زيادة بنسبة",
   sub: "مثال: زد 10% على راتب 5000 ريال",
@@ -74,6 +79,12 @@ const CONFIGS = {
     labelA: "النسبة",
     unitA: "%",
     labelB: "المبلغ",
+    unitB: ""
+  },
+  2: {
+    labelA: "الرقم",
+    unitA: "",
+    labelB: "من أصل",
     unitB: ""
   },
   3: {
@@ -95,6 +106,12 @@ const COLORS = {
     mid: "#8b5cf6",
     light: "#a78bfa",
     glow: "rgba(124,58,237,0.35)"
+  },
+  2: {
+    main: "#0891b2",
+    mid: "#0ea5e9",
+    light: "#38bdf8",
+    glow: "rgba(8,145,178,0.35)"
   },
   3: {
     main: "#059669",
@@ -163,6 +180,11 @@ function PercentCalc() {
       unit: "",
       label: "النتيجة",
       detail: null
+    };else if (mode === 2) res = {
+      main: fmt(na / nb * 100),
+      unit: "%",
+      label: "النسبة المئوية",
+      detail: null
     };else if (mode === 3) {
       const v = na / 100 * nb;
       res = {
@@ -212,7 +234,7 @@ function PercentCalc() {
   }, MODES.find(m => m.id === mode).sub)), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "1fr 1fr 1fr",
+      gridTemplateColumns: "1fr 1fr",
       gap: 8,
       marginBottom: 16
     }
@@ -965,6 +987,9 @@ function App() {
       fontSize: 13
     }
   }, "✶"), /*#__PURE__*/React.createElement("p", {
+    style: {      fontSize: 13
+    }
+  }, "❖"), /*#__PURE__*/React.createElement("p", {
     style: {
       color: "rgba(255,255,255,0.45)",
       fontSize: 13,
@@ -977,7 +1002,7 @@ function App() {
       color: "rgba(255,255,255,0.2)",
       fontSize: 13
     }
-  }, "✶"))));
+  }, "❖"))));
 }
 ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));
   </script>
