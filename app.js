@@ -980,8 +980,8 @@ function App() {
     label: "بلوت",
     icon: "🃏"
   }];
-  const accentColor = tab === "percent" ? "#8b5cf6" : tab === "baloot" ? "#7c3aed" : "#10b981";
-  const accentGlow = tab === "percent" ? "rgba(139,92,246,0.35)" : tab === "baloot" ? "rgba(124,58,237,0.35)" : "rgba(16,185,129,0.35)";
+  const accentColor = tab === "percent" ? "#8b5cf6" : tab === "baloot" ? "#f59e0b" : "#10b981";
+  const accentGlow = tab === "percent" ? "rgba(139,92,246,0.35)" : tab === "baloot" ? "rgba(245,158,11,0.35)" : "rgba(16,185,129,0.35)";
   return /*#__PURE__*/React.createElement("div", {
     style: {
       minHeight: "100vh",
@@ -1035,7 +1035,7 @@ function App() {
       fontSize: 15,
       fontWeight: 700
     }
-  }, "أدوات النسب المئوية")), /*#__PURE__*/React.createElement("div", {
+  }, tabs.find(t => t.id === tab).label)), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1fr 1fr 1fr",
