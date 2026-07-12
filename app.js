@@ -982,6 +982,11 @@ function App() {
   }];
   const accentColor = tab === "percent" ? "#8b5cf6" : tab === "baloot" ? "#f59e0b" : "#10b981";
   const accentGlow = tab === "percent" ? "rgba(139,92,246,0.35)" : tab === "baloot" ? "rgba(245,158,11,0.35)" : "rgba(16,185,129,0.35)";
+  const { useEffect } = React;
+  useEffect(() => {
+    document.documentElement.style.setProperty('--accent', accentColor);
+  }, [accentColor]);
+
   return /*#__PURE__*/React.createElement("div", {
     style: {
       minHeight: "100vh",
@@ -992,15 +997,6 @@ function App() {
       paddingBottom: 40
     }
   }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: "100%",
-      height: 3,
-      background: `linear-gradient(90deg, ${accentColor}, #fff2, ${accentColor})`,
-      backgroundSize: "200% auto",
-      animation: "shimmer 3s linear infinite",
-      transition: "background 0.4s"
-    }
-  }), /*#__PURE__*/React.createElement("div", {
     style: {
       width: "100%",
       maxWidth: 440,

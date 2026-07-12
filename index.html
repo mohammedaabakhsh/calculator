@@ -46,9 +46,20 @@
     .mode-btn:active  { transform: scale(0.94); }
     .calc-btn  { transition: all 0.18s cubic-bezier(0.22, 1, 0.36, 1); }
     .calc-btn:active  { transform: scale(0.97); }
+
+    #topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent, #8b5cf6), rgba(255,255,255,0.25), var(--accent, #8b5cf6));
+      background-size: 200% auto;
+      animation: shimmer 2.5s linear infinite;
+      z-index: 9999;
+    }
   </style>
 </head>
 <body>
+  <div id="topbar"></div>
   <div id="root"></div>
   <script src="app.js"></script>
   <script>
