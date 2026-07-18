@@ -1,34 +1,40 @@
-const CACHE = 'calculator-v2';
+const CACHE = 'calculator-v4';
 const APP_FILES = [
   '/calculator/',
   '/calculator/index.html',
   '/calculator/app.js',
   '/calculator/manifest.json',
-  '/calculator/icon.svg',
+  '/calculator/icon.svg'
 ];
 
-self.addEventListener('install', e => {
-  e.waitUntil(
+self.addEventListener('install', event => {
+  event.waitUntil(
     caches.open(CACHE)
-      .then(c => c.addAll(APP_FILES))
+      .then(cache => cache.addAll(APP_FILES))
       .then(() => self.skipWaiting())
   );
 });
 
-self.addEventListener('activate', e => {
-  e.waitUntil(
+self.addEventListener('activate', event => {
+  event.waitUntil(
     caches.keys()
-      .then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
+      .then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key))))
       .then(() => self.clients.claim())
   );
 });
 
-self.addEventListener('fetch', e => {
-  const url = new URL(e.request.url);
+self.addEventListener('fetch', event => {
+  const request = event.request;
+  const url = new URL(request.url);
+  if (request.method !== 'GET' || url.origin !== self.location.origin) return;
 
-  // تجاهل طلبات CDN والخطوط — المتصفح يتعامل معها مباشرة
-  if (url.origin !== self.location.origin) return;
-
-  // ملفات التطبيق: cache أولاً، ثم الشبكة
-  e.respondWith(
-    caches.match(e.request).th
+  event.respondWith(
+    fetch(request)
+      .then(response => {
+        const copy = response.clone();
+        caches.open(CACHE).then(cache => cache.put(request, copy));
+        return response;
+      })
+      .catch(() => caches.match(request).then(cached => cached || caches.match('/calculator/')))
+  );
+});
