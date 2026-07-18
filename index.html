@@ -3,31 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="description" content="حاسبة عربية سريعة للنسب المئوية وتوزيع الأرباح." />
   <title>حاسبة النسبة المئوية</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#7c3aed">
+  <meta name="theme-color" content="#09090f">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="حاسبة">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js" crossorigin></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
   <style>
+    :root {
+      color-scheme: dark;
+      --page-bg: #08080d;
+      --surface: rgba(255, 255, 255, 0.045);
+      --surface-strong: rgba(255, 255, 255, 0.07);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, 0.46);
+    }
+
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; }
+    html { min-height: 100%; background: var(--page-bg); }
     body {
       font-family: 'Cairo', sans-serif;
-      background: #0a0a0f;
+      background:
+        radial-gradient(circle at 85% 10%, rgba(124, 58, 237, 0.15), transparent 32%),
+        radial-gradient(circle at 12% 85%, rgba(8, 145, 178, 0.11), transparent 30%),
+        linear-gradient(180deg, #0b0b12 0%, #07070b 100%);
+      color: var(--text);
       min-height: 100vh;
       direction: rtl;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.24;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+
+    #root {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: max(24px, env(safe-area-inset-top)) 0 max(36px, env(safe-area-inset-bottom));
+    }
+
+    button, input { -webkit-tap-highlight-color: transparent; }
+    button { font-family: inherit; }
+    button:focus-visible,
+    input:focus-visible {
+      outline: 2px solid rgba(167, 139, 250, 0.9);
+      outline-offset: 3px;
+    }
+
     input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button { -webkit-appearance: none; }
+    input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
     input[type=number] { -moz-appearance: textfield; }
+
+    ::selection { background: rgba(124, 58, 237, 0.45); color: #fff; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 999px; }
+
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(16px) scale(0.98); }
       to   { opacity: 1; transform: translateY(0) scale(1); }
@@ -40,21 +95,50 @@
       from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+
     .result-enter  { animation: slideUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
     .partner-enter { animation: fadeIn 0.25s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-    .mode-btn  { transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1); }
-    .mode-btn:active  { transform: scale(0.94); }
-    .calc-btn  { transition: all 0.18s cubic-bezier(0.22, 1, 0.36, 1); }
-    .calc-btn:active  { transform: scale(0.97); }
+    .mode-btn  {
+      transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s, background 0.2s, box-shadow 0.2s;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .mode-btn:hover { transform: translateY(-2px); }
+    .mode-btn:active { transform: scale(0.96); }
+    .calc-btn {
+      transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), filter 0.2s, box-shadow 0.2s;
+    }
+    .calc-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .calc-btn:active { transform: scale(0.98); }
 
     #topbar {
       position: fixed;
       top: 0; left: 0; right: 0;
       height: 3px;
-      background: linear-gradient(90deg, var(--accent, #8b5cf6), rgba(255,255,255,0.25), var(--accent, #8b5cf6));
+      background: linear-gradient(90deg, var(--accent, #8b5cf6), rgba(255,255,255,0.5), var(--accent, #8b5cf6));
       background-size: 200% auto;
       animation: shimmer 2.5s linear infinite;
+      box-shadow: 0 0 18px rgba(139, 92, 246, 0.45);
       z-index: 9999;
+    }
+
+    @media (max-width: 520px) {
+      #root {
+        padding-top: max(16px, env(safe-area-inset-top));
+      }
+      .mode-btn:hover,
+      .calc-btn:hover {
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
@@ -65,7 +149,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', async () => {
-        const SW_VER = 'v2';
+        const SW_VER = 'v3';
         if (localStorage.getItem('swVer') !== SW_VER) {
           const regs = await navigator.serviceWorker.getRegistrations();
           await Promise.all(regs.map(r => r.unregister()));
